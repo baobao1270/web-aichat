@@ -8,11 +8,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "production": "pm2 start ecosystem.config.js --env production",
     "update-prompts": "mkdir -p src/data && wget https://raw.githubusercontent.com/PlexPt/awesome-chatgpt-prompts-zh/main/prompts-zh.json -O src/data/prompts.json",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.astro --fix",
-    "release": "bumpp",
-    "postinstall": "npx simple-git-hooks"
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.astro --fix"
   },
   "dependencies": {
     "@astrojs/netlify": "2.0.0",
@@ -77,11 +76,5 @@
     "simple-git-hooks": "^2.8.1",
     "unocss": "^0.50.6",
     "vite-plugin-pwa": "^0.14.7"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
-  },
-  "lint-staged": {
-    "*": "pnpm lint:fix"
   }
 }
