@@ -1,7 +1,6 @@
 import { action, atom, computed, map } from 'nanostores'
 import { botMetaList } from './provider'
 import { clearMessagesByConversationId } from './messages'
-import { conversationMapData } from './tests/conversation.mock'
 import { db } from './storage/conversation'
 import type { Conversation } from '@/types/conversation'
 

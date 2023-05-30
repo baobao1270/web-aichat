@@ -2,79 +2,82 @@
 
 # Anse
 
-English | [简体中文](./README.zh-CN.md)
+[English](./README.md) | 简体中文
 
-Anse is a fully optimized UI for AI Chats.
+Anse 是一个极致优化的 AI 聊天 UI.
 
-- 🍿 **Live preview**: https://anse.app
-- 📖 **Documentation**: https://docs.anse.app
-- ✨ **Release Notes**: https://github.com/anse-app/anse/releases
+- 🍿 **在线预览**: https://anse.app
+- 📖 **文档地址**: https://docs.anse.app
+- ✨ **版本日志**: https://github.com/anse-app/anse/releases
 
-## Features
+## 功能
 
-- **🚀 Powerful Plugin System** - Powered by `Provider plugin` , easy to extend AI platforms such as [OpenAI](https://openai.com/), [Replicate](https://replicate.com/), and also supports custom model parameters.
-- **💬 Session Record Saving** - We use `IndexDB` to store local data, it will not be uploaded to the server, security issues are guaranteed.
-- **🎉 Multiple Session Modes** - Provides different conversations modes，support `Single Conversation`, `Continuous Conversation`, `OpenAI Image Generation`、`Stable Diffusion` and more.
-- **💎 Improved UI Experience** - We have refactored the website UI for the previous version, optimized a lot of details, and also adapted to `mobile end` and `dark mode`.
-- **🌈 One-Click Deployment** - Support one-click deployment, abandoned use environment variables, you can refer to our documentation to deploy the website to [Vercel](https://vercel.com/), [Netlify](https://www.netlify.com/), `Docker`, `Node` and other platforms.
+- **🚀 强大的插件系统** - 归功于 `Provider plugin` ，轻松扩展类似于 [OpenAI](https://openai.com/), [Replicate](https://replicate.com/) 等 AI 平台, 并且支持自定义模型参数.
+- **💬 会话记录保存** - 使用 `IndexDB` 保存本地数据，不会上传到服务器，保证安全问题。.
+- **🎉 多种对话模式** - 提供不同的对话模式：`单词对话`, `连续对话`, `OpenAI 图像生成`、`Stable Diffusion` 和更多.
+- **💎 优化用户界面体验** - 我们对上一个版本重构了网站用户界面，优化了很多细节，还适应了移动端和黑暗模式.
+- **🌈 一键部署** -支持一键部署，不再需要环境变量，可以参考我们的留档将网站部署到 [Vercel](https://vercel.com/), [Netlify](https://www.netlify.com/), `Docker`, `Node` 和更多平台.
 
-## Running Locally
+## 本地运行
 
-### Pre environment
-1. **Node**: Check that both your development environment and deployment environment are using `Node v18` or later. You can use [nvm](https://github.com/nvm-sh/nvm) to manage multiple `node` versions locally。
+### 前置环境
+1. **Node**: 检查您的开发环境和部署环境是否都使用 `Node v18` 或更高版本。你可以使用 [nvm](https://github.com/nvm-sh/nvm) 管理本地多个 `node` 版本
    ```bash
     node -v
    ```
-2. **PNPM**: We recommend using [pnpm](https://pnpm.io/) to manage dependencies. If you have never installed pnpm, you can install it with the following command:
+2.  **PNPM**: 我们推荐使用 [pnpm](https://pnpm.io/) 来管理依赖，如果你从来没有安装过 pnpm，可以使用下面的命令安装：
    ```bash
     npm i -g pnpm
    ```
-3. **OPENAI_API_KEY**: Before running this application, you need to obtain the API key from OpenAI. You can register the API key at [https://beta.openai.com/signup](https://beta.openai.com/signup).
+3.  **OPENAI_API_KEY**: 在运行此应用程序之前，您需要从 OpenAI 获取 API 密钥。您可以在 [https://beta.openai.com/signup](https://beta.openai.com/signup) 注册 API 密钥
 
-### Getting Started
+### 起步运行
 
-1. Install dependencies
+1. 安装依赖
    ```bash
     pnpm install
    ```
-2. Run the application, the local project runs on `http://localhost:3000/`
+2. 运行应用，本地项目运行在 `http://localhost:3000/`
    ```bash
     pnpm run dev
    ```
-3. Add your [OpenAI API key](https://platform.openai.com/account/api-keys) to the settings panel, then enjoy it!
+3. 在设置面板添加你的 [OpenAI API key](https://platform.openai.com/account/api-keys), 然后尽情享受吧!
 
-## How to deploy
-For more details, please refer to this document: https://docs.anse.app/self-deploy
+## 部署
 
-## Enable Automatic Updates
+获取更多信息，请参考部署文档: https://docs.anse.app/self-deploy
 
-After forking the project, you need to manually enable Workflows and Upstream Sync Action on the Actions page of the forked project. Once enabled, automatic updates will be scheduled every day:
+## 开启同步更新
+
+Fork 项目后，您需要在 Fork 项目的操作页面上手动启用工作流和上游同步操作。启用后，每天都会执行自动更新:
 
 ![](https://cdn.staticaly.com/gh/yzh990918/static@master/20230518/image.2omctdf8bbk0.webp)
-## Frequently Asked Questions
+
+## 常见问题
 
 Q: TypeError: fetch failed (can't connect to OpenAI Api)
 
-A: Reference: https://github.com/anse-app/chatgpt-demo/issues/34
+A: 参考: https://github.com/anse-app/chatgpt-demo/issues/34
 
 Q: throw new TypeError(`${context}` is not a ReadableStream.)
 
-A: The Node version needs to be `v18` or later，reference: https://github.com/anse-app/chatgpt-demo/issues/65
+A: Node 版本需要在 `v18` 或者更高，参考: https://github.com/anse-app/chatgpt-demo/issues/65
 
-Q: Accelerate domestic access without the need for proxy deployment tutorial?
+Q: 无需代理部署教程即可加速国内访问？?
 
-A: You can refer to this tutorial: https://github.com/anse-app/chatgpt-demo/discussions/270
+A: 你可以参考此教程: https://github.com/anse-app/chatgpt-demo/discussions/270
 
-Q: `PWA` is not working?
+Q: `PWA` 不工作？
 
-A: Current `PWA` does not support deployment on Netlify, you can choose vercel or node deployment.
-## Contributing
+A: 当前的 PWA 不支持 Netlify 部署，您可以选择 vercel 或 node 部署。
 
-This project exists thanks to all those who contributed.
+## 参与贡献
 
-Thank you to all our supporters!🙏
+这个项目的存在要感谢所有做出贡献的人。
 
-[![img](https://contrib.rocks/image?repo=anse-app/anse)](https://github.com/anse-app/anse/graphs/contributors)
+感谢我们所有的支持者！🙏
+
+[![img](https://contributors.nn.ci/api?repo=anse-app/anse)](https://github.com/anse-app/anse/graphs/contributors)
 
 ## License
 

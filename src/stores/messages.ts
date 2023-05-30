@@ -1,5 +1,4 @@
 import { action, map } from 'nanostores'
-import { conversationMessagesMapData } from './tests/message.mock'
 import { db } from './storage/message'
 import { updateConversationById } from './conversation'
 import type { MessageInstance } from '@/types/message'

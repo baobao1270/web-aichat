@@ -6,16 +6,44 @@ import Settings from '@/components/settings/SettingsSidebar'
 import ModalsLayer from '@/components/ModalsLayer'
 import Sidebar from '@/components/ui/Sidebar'
 import BuildStores from '@/components/client-only/BuildStores'
+
+import { getServerEnv } from '@/server-env';
+import { connectDb } from '@/models/db'
+import type { LoginState, User } from '@/models/entity';
+import { jwtVerify } from 'jose';
+
+const cookies = Astro.request.headers.get('cookie') || '';
+const parsedCookies = Object.fromEntries(
+  cookies.split(';').map((cookie) => cookie.trim().split('='))
+);
+const sessionToken = parsedCookies['session_token'];
+let loginState: LoginState = { login: false }
+try {
+  const { payload } = await jwtVerify(sessionToken, new TextEncoder().encode(getServerEnv().JWT_KEY));
+  const email = payload.email as string;
+  const dbContext = await connectDb();
+  const collection = dbContext.db.collection<User>('users');
+  const user = await collection.findOne({ email });
+  if (!user) { throw new Error('user not found'); }
+  const memberships = user.memberships;
+  const availableModels = memberships.filter(m => m.until > new Date()).map(m => m.model);
+  loginState = {
+    login: true,
+    email,
+    availableModels,
+    memberships,
+  }
+} catch (e) { /* do nothing */ }
 ---
 
-<Layout title="Anse">
+<Layout title="Web AI Chat">
     <div class="h-100dvh w-screen flex">
       <Sidebar direction="left" class="hidden md:block">
         <ConversationSidebar client:only />
       </Sidebar>
       <Main />
       <Sidebar direction="right" class="hidden lg:block">
-        <Settings client:only />
+        <Settings loginState={loginState} client:only />
       </Sidebar>
     </div>
     <ModalsLayer client:only />

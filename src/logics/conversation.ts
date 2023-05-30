@@ -2,7 +2,7 @@ import destr from 'destr'
 import { getBotMetaById, getProviderById } from '@/stores/provider'
 import { updateConversationById } from '@/stores/conversation'
 import { clearMessagesByConversationId, getMessagesByConversationId, pushMessageByConversationId } from '@/stores/messages'
-import { getGeneralSettings, getSettingsByProviderId } from '@/stores/settings'
+import { getSettingsByProviderId } from '@/stores/settings'
 import { setLoadingStateByConversationId, setStreamByConversationId } from '@/stores/streams'
 import { currentErrorMessage } from '@/stores/ui'
 import { generateRapidProviderPayload, promptHelper } from './helper'
@@ -11,12 +11,11 @@ import type { Conversation } from '@/types/conversation'
 import type { ErrorMessage, Message } from '@/types/message'
 
 export const handlePrompt = async(conversation: Conversation, prompt?: string, signal?: AbortSignal) => {
-  const generalSettings = getGeneralSettings()
   const bot = getBotMetaById(conversation.bot)
   const [providerId, botId] = conversation.bot.split(':')
   const provider = getProviderById(providerId)
   if (!provider) return
-  let callMethod = generalSettings.requestWithBackend ? 'backend' : 'frontend' as 'frontend' | 'backend'
+  let callMethod = 'backend' as 'backend' | 'frontend'
   if (provider.supportCallMethod === 'frontend' || provider.supportCallMethod === 'backend')
     callMethod = provider.supportCallMethod
 

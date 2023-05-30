@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+<Layout title="注册 | Web AI Chat">
+  <div class="flex items-center justify-center min-h-screen bg-login">
+    <div class="bg-white p-8 rounded shadow-lg w-full max-w-screen-sm">
+      <h1 class="text-2xl text-center font-bold mb-8">注册</h1>
+      <form method="POST" action="/api/register">
+        <div class="mb-4">
+          <label for="email" class="block mb-2 font-medium">电子邮箱</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="输入您的电子邮箱"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block mb-2 font-medium">密码</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="输入您的密码"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="repeat_password" class="block mb-2 font-medium">重复密码</label>
+          <input
+            type="password"
+            id="repeat_password"
+            name="repeat_password"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="重复你的密码"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
+          >注册</button
+        >
+      </form>
+      <p class="text-center text-gray-500 text-sm mt-4">
+        <span id="error" class="text-red-500"></span>
+      </p>
+      <p class="text-center text-gray-500 text-sm mt-4">
+        <div class="flex items-center justify-center">
+          <a href="/login" class="hover:text-blue-800 text-blue-500">登录</a>
+          <span class="mx-2">·</span>
+          <a href="/" class="hover:text-blue-800 text-blue-500">回首页</a>
+        </div>
+      </p>
+    </div>
+    <script>
+      const error = new URLSearchParams(window.location.search).get("error");
+      if (error === "passwords-not-match") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "两次密码不一致";
+      }
+      if (error === "email-already-exists") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "该邮箱已被注册";
+      }
+      if (error === "empty-fields") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "请填写所有字段";
+      }
+      if (error === "password-too-short") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "密码太短，请至少输入 8 个字符";
+      }
+      if (error === "password-too-long") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "密码太长，请不要超过 256 个字符";
+      }
+      if (error === "email-too-long") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "邮箱太长，请不要超过 128 个字符";
+      }
+      if (error === "invalid-email") {
+        // @ts-ignore
+        document.querySelector("#error").innerText = "邮箱格式不正确";
+      }
+    </script>
+  </div>
+</Layout>

@@ -1,4 +1,4 @@
-import { Match, Switch, createSignal, onMount } from 'solid-js'
+import { For, Match, Switch, createSignal, onMount } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import { createShortcut } from '@solid-primitives/keyboard'
 import { currentErrorMessage, isSendBoxFocus, scrollController } from '@/stores/ui'
@@ -8,6 +8,7 @@ import { handlePrompt } from '@/logics/conversation'
 import { globalAbortController } from '@/stores/settings'
 import { useI18n, useMobileScreen } from '@/hooks'
 import Button from './ui/Button'
+import { prompts } from '@/data/prompts-type' 
 
 export default () => {
   const { t } = useI18n()
@@ -69,27 +70,41 @@ export default () => {
           ref={inputRef!}
           placeholder={t('send.placeholder')}
           autocomplete="off"
-          onBlur={() => { isSendBoxFocus.set(false) }}
           onInput={() => { setInputPrompt(inputRef.value) }}
           onKeyDown={(e) => {
             e.key === 'Enter' && !e.isComposing && !e.shiftKey && handleSend()
           }}
-          class="h-full w-full absolute inset-0 py-4 px-[calc(max(1.5rem,(100%-48rem)/2))] scroll-pa-4 input-base text-sm"
+          class="h-full w-full absolu te inset-0 py-4 px-[calc(max(1.5rem,(100%-48rem)/2))] scroll-pa-4 input-base text-sm"
         />
       </div>
       <div class="fi justify-between gap-2 h-14 px-[calc(max(1.5rem,(100%-48rem)/2)-0.5rem)] border-t border-base">
         <div>
-          {/* <Button
-            icon="i-carbon-plug"
-            onClick={() => {}}
-          /> */}
+          <Button
+            icon="i-carbon-close"
+            onClick={ () => { isSendBoxFocus.set(false) } }
+            variant="normal"
+            />
         </div>
-        <Button
-          icon="i-carbon-send"
-          onClick={handleSend}
-          variant={inputPrompt() ? 'primary' : 'normal'}
-          // prefix={t('send.button')}
-        />
+        <div class='flex-1'>
+          <select
+            class='w-full pt-1.5 pb-1.5 pl-2 pr-2 rounded border focus:outline-none focus:ring-2 focus:ring-gray-500'
+            onChange={(e) => { setInputPrompt(e.currentTarget.value); inputRef.value = e.currentTarget.value }}
+            >
+            <option value=''>清空选择</option>
+            <For each={prompts}>
+              { (item) => (
+                <option value={item.prompt}>{item.act}</option>
+              )}
+            </For>
+          </select>
+        </div>
+        <div>
+          <Button
+            icon="i-carbon-send"
+            onClick={handleSend}
+            variant={inputPrompt() ? 'primary' : 'normal'}
+          />
+        </div>
       </div>
     </div>
   )
@@ -107,7 +122,8 @@ export default () => {
         class="border border-error px-2 py-1 rounded-md hv-base hover:bg-white"
         onClick={() => { currentErrorMessage.set(null) }}
       >
-        Dismiss
+        晓得哉
+        { /* 偷偷在这里加一句江阴话应该没人发现吧 */ }
       </div>
     </div>
   )
@@ -124,12 +140,12 @@ export default () => {
 
   const LoadingState = () => (
     <div class="max-w-base h-full fi flex-row gap-2">
-      <div class="flex-1 op-50">Thinking...</div>
+      <div class="flex-1 op-50">AI 正在思考...</div>
       <div
         class="border border-base-100 px-2 py-1 rounded-md text-sm op-40 hv-base hover:bg-white"
         onClick={() => { handleAbortFetch() }}
       >
-        Abort
+        中断
       </div>
     </div>
   )
