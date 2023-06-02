@@ -30,7 +30,7 @@ export default ({ loginState }: Props) => {
           )}
         </For>
         <div class='px-4 py-3 border transition-colors border-b-base border-l-transparent border-r-transparent border-t-transparent leading-6'>
-        { loginState.login ? (
+        { loginState?.login ? (
           <div>
             <p class='mb-4'>
               用户信息<br />
