@@ -46,6 +46,6 @@ try {
         <Settings loginState={loginState} client:only />
       </Sidebar>
     </div>
-    <ModalsLayer client:only />
+    <ModalsLayer client:only loginState={loginState} />
     <BuildStores client:only />
 </Layout>

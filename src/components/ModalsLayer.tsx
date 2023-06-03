@@ -9,8 +9,13 @@ import SettingsSidebar from './settings/SettingsSidebar'
 import ConversationEditModal from './conversations/ConversationEditModal'
 import EmojiPickerModal from './ui/EmojiPickerModal'
 import Modal from './ui/Modal'
+import type { LoginState } from '@/models/entity'
 
-export default () => {
+interface Props {
+  loginState: LoginState
+}
+
+export default ({ loginState }: Props) => {
   return (
     <>
       <Modal bindValue={showConversationSidebar} direction="left" closeBtnClass="hidden">
@@ -20,7 +25,7 @@ export default () => {
       </Modal>
       <Modal bindValue={showSettingsSidebar} direction="right">
         <div class="w-screen sm:w-[70vw] sm:max-w-[300px] h-full">
-          <SettingsSidebar />
+          <SettingsSidebar loginState={loginState} />
         </div>
       </Modal>
       <Modal bindValue={showConversationEditModal} direction="bottom" closeBtnClass="top-6 right-6">
